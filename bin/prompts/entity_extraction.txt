@@ -5,7 +5,7 @@ Given a text document that is potentially relevant to this activity and a list o
 -Steps-
 1. Identify all entities. For each identified entity, extract the following information:
 - entity_name: Name of the entity, capitalized
-- entity_type: One of the following types: [organization, person, model, company, product, event, technology, publication, website, startup]
+- entity_type: One of the following types: [book, event, organization, person, technology, sector, investment_strategy, project, product, government_agency, initiative, platform, startup, conference, research_team, hospital, algorithm, framework, goal, company, funding]
 - entity_description: Comprehensive description of the entity's attributes and activities
 Format each entity as ("entity"{tuple_delimiter}<entity_name>{tuple_delimiter}<entity_type>{tuple_delimiter}<entity_description>)
 
@@ -28,105 +28,109 @@ Format each relationship as ("relationship"{tuple_delimiter}<source_entity>{tupl
 
 Example 1:
 
-entity_types: [organization, person, model, company, product, event, technology, publication, website, startup]
+entity_types: [book, event, organization, person, technology, sector, investment_strategy, project, product, government_agency, initiative, platform, startup, conference, research_team, hospital, algorithm, framework, goal, company, funding]
 text:
- how to build RAG systems that actually generate business value. Given how comprehensive this topic can be, I will split it into a series (similar to the one we just did on Deepfakes). Today’s piece will cover the overview of the general principles, which will then form the basis of our other explorations into more advanced/specific topics (Knowledge Intensive RAG, Multi-Modal RAG, GraphRAG, AgenticRAG, and much more). To do so, we will look at the excellent “Searching for Best Practices in Retrieval-Augmented Generation” and other good publications in the space. Given the nature of the source, we will revert from the usual tl;dr and then elaborate format, to instead discuss everything together. The rest of this article will be a discussion of the engineering of RAG systems, so if you’re not interested in the technical details, you can click off here. Otherwise let’s dig into the various stages that go into a Retrieval
+# 10 New Ecommerce Books for Summer 2024 (2 Minute Read) 
+ A round-up of recent titles that present fresh takes on marketing strategy, economics and finance, AI, startups, Amazon, and more. These include Simple Marketing for Smart People, The 10-Second Customer Journey, and Think Like a Brand – Act Like a Startup.
 ------------------------
 output:
-Based on the provided entity list and text document, I'll identify and extract relevant entities and relationships.
+Based on the provided data, I will identify entities in the text and match them with the given entity types.
 
-**Extracted Entities:**
+Here is the output:
 
-1. **RAG** (MODEL) - Retrieval-Augmented Generation
-2. **Deepfakes** (MODEL) - a type of AI-generated media
-3. **Knowledge Intensive RAG** (MODEL) - a specific type of RAG system
-4. **Multi-Modal RAG** (MODEL) - a specific type of RAG system
-5. **GraphRAG** (MODEL) - a specific type of RAG system
-6. **AgenticRAG** (MODEL) - a specific type of RAG system
+{record_delimiter}
+("entity"{tuple_delimiter}Simple Marketing for Smart People{tuple_delimiter}BOOK{tuple_delimiter}Book title)
+{record_delimiter}
+("entity"{tuple_delimiter}The 10-Second Customer Journey{tuple_delimiter}BOOK{tuple_delimiter}Book title)
+{record_delimiter}
+("entity"{tuple_delimiter}Think Like a Brand – Act Like a Startup{tuple_delimiter}BOOK{tuple_delimiter}Book title)
+{record_delimiter}
+("entity"{tuple_delimiter}Amazon{tuple_delimiter}COMPANY{tuple_delimiter}Company name)
+{record_delimiter}
 
-**Extracted Relationships:**
-
-1. **RAG** is related to **Retrieval-Augmented Generation** (TYPE)
-2. **Deepfakes** is related to **AI-generated media** (TYPE)
-3. **Knowledge Intensive RAG** is a subtype of **RAG** (MODEL)
-4. **Multi-Modal RAG** is a subtype of **RAG** (MODEL)
-5. **GraphRAG** is a subtype of **RAG** (MODEL)
-6. **AgenticRAG** is a subtype of **RAG** (MODEL)
-
-Note that there are no entities or relationships extracted from the provided entity list, as they seem to be unrelated to the text document. If you'd like me to process the entire entity list, please let me know!
+Note: Since the text does not contain any entities that match the other entity types (event, organization, person, technology, sector, investment_strategy, project, product, government_agency, initiative, platform, startup, conference, research_team, hospital, algorithm, framework, goal), they are not included in the output.
 #############################
 
 
 Example 2:
 
-entity_types: [organization, person, model, company, product, event, technology, publication, website, startup]
+entity_types: [book, event, organization, person, technology, sector, investment_strategy, project, product, government_agency, initiative, platform, startup, conference, research_team, hospital, algorithm, framework, goal, company, funding]
 text:
- the model is deployed. Test in production: Is your model actually good? Testing in production is the only way you can determine if your model is providing the expected value. The pipelines to perform A/B testing and Canary deployments need to be carefully designed to quickly detect if a model is unexpectedly underperforming and remove it without harming the user experience or revenue. This is typically done in collaboration with MLOps engineers. Monitoring in Production: What about if your model deteriorates tomorrow? In production, everything can happen! Data or concepts can shift. Servers can break. The software can have undetected bugs. You need to monitor those different components and implement plans of action (automated or not) as fallback mechanisms in case something gets wrong. This work is typically done in collaboration with MLOps engineers. Documenting: The most critical step nobody likes! This part of the work might be the most underrated part of a project, along with writing unit tests. Iterate: Return to step 1
+# The Evolution Of AI And Mental Healthcare 
+ Artificial intelligence presents transformative opportunities for mental healthcare, offering new possibilities for diagnosis and treatment. However, navigating the benefits and risks of AI in mental health poses complex challenges that require careful consideration and ethical oversight. [Read More]
 ------------------------
 output:
-Based on the provided entity list and text document, I will identify entities in the text and link them to their corresponding types.
+Based on the provided entity list and text document, I will identify the entities mentioned in the text and their corresponding types.
 
 Here is the output:
 
-("entity" "model" "MODEL")
+("entity"{tuple_delimiter}ARTIFICIAL INTELLIGENCE{tuple_delimiter}TECHNOLOGY{tuple_delimiter}AI technology)
 {record_delimiter}
-("entity" "MLOps engineers" "PERSON")
-{record_delimiter}
+("entity"{tuple_delimiter}MENTAL HEALTHCARE{tuple_delimiter}SECTOR{tuple_delimiter}Mental health sector)
 
-Note: Since there are no explicit mentions of organizations, companies, products, events, technologies, publications, or websites in the provided text, only two entities were identified: "model" (linked to entity type "MODEL") and "MLOps engineers" (linked to entity type "PERSON").
+Note: The entities identified are "Artificial Intelligence" (technology) and "Mental Healthcare" (sector).
 #############################
 
 
 Example 3:
 
-entity_types: [organization, person, model, company, product, event, technology, publication, website, startup]
+entity_types: [book, event, organization, person, technology, sector, investment_strategy, project, product, government_agency, initiative, platform, startup, conference, research_team, hospital, algorithm, framework, goal, company, funding]
 text:
--3.1-405B on benchmarks like GSM8K, Math, MMLU-STEM, OlympiadBench, and CollegeMath - a serious contender in the mathematical reasoning arena.
-
-3. Complex Problem Solving - Qwen2-Math can tackle a wide range of mathematical tasks, from basic arithmetic to challenging competition-level problems. Think IMO Shortlist and even the International Zhautykov Olympiad!
-
-4. Availability - The suite of models is available on Hugging Face, GitHub, and Modelscope.
+# How to Bring Machine Learning Projects 
+ Join this virtual event to learn how Gretel and Lambda Labs together unlock faster experimentation so teams can easily vet approaches, fail fast, and be much more agile in delivering an LLM solution that works. To build a successful machine learning product, you need to understand how to manage a machine learning project. This takes a lot of soft skills, from product discovery passing by the project planning and finally the execution, there is a lot more to building a machine learning solution than just knowing some algorithms! Machine learning is all about developing models? Think again! Machine learning is risky and costly, and we cannot get started on a project without planning, coordination, and collaboration. Here is my typical template for leading a machine learning project to success. Here are the critical steps, but each project may need some adjustment depending on the specificity of the project. Product Discovery: What is the size of your market, and for what ML solution? Like any business endeavor, building new software
 ------------------------
 output:
-Based on the provided data, I will identify entities in the text document that are relevant to the activity and match them with the given list of entity{tuple_delimiter}Country seeking to release hostages).
+Based on the provided text document and entity list, I will extract relevant entities and relationships.
 
-Here's the output:
+**Extracted Entities:**
 
-* No entities in the text document match the given list of entity{tuple_delimiter}Country seeking to release hostages). The text appears to be discussing mathematical models, benchmarks, and Olympiads, which are unrelated to the provided list.
+1. **Gretel** (organization)
+2. **Lambda Labs** (organization)
+3. **Machine Learning** (technology)
+4. **LLM solution** (product)
 
-If you'd like me to assist with anything else, please let me know!
+**Extracted Relationships:**
+
+1. **Gretel** and **Lambda Labs** are collaborating on a project to unlock faster experimentation in machine learning.
+2. **Machine Learning** is a technology used in the development of **LLM solutions**.
+
+Note that there are no entities or relationships mentioned in the text that match the provided list of entity types (e.g., book, event, person, etc.). The extracted entities and relationships are based on the content of the text document.
 #############################
 
 
 Example 4:
 
-entity_types: [organization, person, model, company, product, event, technology, publication, website, startup]
+entity_types: [book, event, organization, person, technology, sector, investment_strategy, project, product, government_agency, initiative, platform, startup, conference, research_team, hospital, algorithm, framework, goal, company, funding]
 text:
-# CHEAT SHEET: ENTERPRISE AI TERMINOLOGY 
- Here's a cheat sheet of key enterprise AI terms covering role-based access control, turnkey solutions, retrieval-augmented generation, and more.
+ insights during the listening sessions are calling the results a disappointment, lacking vision, a delay of much-needed regulation, and a missed opportunity to act when much of the world already has. Schumer was clear that U.S. domination of AI is the goal, referring during the press conference to the $32 billion as “surge emergency funding to cement America’s dominance in AI,” including “outcompeting China.” The money would go to R&D, infrastructure, funding the outstanding CHIPS and Science Act, a series of “AI Grand Challenge” programs, and dozens of other government agencies and AI-related initiatives. Delaying regulation certainly helps U.S. tech companies—especially dominant players, which argue that regulation would “stifle innovation”—to do so.
 ------------------------
 output:
-Based on the provided text document and entity types, I will generate the output in the specified format.
+Based on the provided text document and entity list, I will identify and extract relevant entities and relationships.
 
-Here is the output:
+**Extracted Entities:**
 
-("entity"{tuple_delimiter}ENTERPRISE AI{tuple_delimiter}TECHNOLOGY{tuple_delimiter}Key enterprise AI terms)
-{record_delimiter}
-("entity"{tuple_delimiter}ROLE-BASED ACCESS CONTROL{tuple_delimiter}TECHNOLOGY{tuple_delimiter}Enterprise AI term related to access control)
-{record_delimiter}
-("entity"{tuple_delimiter}TURNKEY SOLUTIONS{tuple_delimiter}TECHNOLOGY{tuple_delimiter}Enterprise AI term related to solutions)
-{record_delimiter}
-("entity"{tuple_delimiter}RETRIEVAL-AUGMENTED GENERATION{tuple_delimiter}TECHNOLOGY{tuple_delimiter}Enterprise AI term related to generation)
-{record_delimiter}
+1. **PERSON**: Schumer
+2. **GOVERNMENT_AGENCY**: U.S. government agencies (multiple)
+3. **INITIATIVE**: AI Grand Challenge programs
+4. **COMPANY**: U.S. tech companies (multiple, but no specific names mentioned)
+5. **COUNTRY**: China
+6. **COUNTRY**: America (referring to the United States)
 
-Note: Since there are no relationships mentioned in the text, I didn't generate any relationship records. Also, the entity types provided were not explicitly mentioned in the text, so I assumed the most relevant type for each entity.
+**Extracted Relationships:**
+
+1. **GOAL**: Schumer - U.S. domination of AI
+2. **FUNDING**: $32 billion - R&D, infrastructure, CHIPS and Science Act, AI Grand Challenge programs, government agencies, and initiatives
+3. **REGULATION**: Delaying regulation - helps U.S. tech companies (especially dominant players)
+4. **COMPETITION**: America - outcompeting China in AI
+
+Please let me know if you would like me to extract any additional information or clarify the extracted entities and relationships!
 #############################
 
 
 
 -Real Data-
 ######################
-entity_types: [organization, person, model, company, product, event, technology, publication, website, startup]
+entity_types: [book, event, organization, person, technology, sector, investment_strategy, project, product, government_agency, initiative, platform, startup, conference, research_team, hospital, algorithm, framework, goal, company, funding]
 text: {input_text}
 ######################
 output:

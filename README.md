@@ -19,8 +19,12 @@ python -m graphrag.prompt_tune --root ./bin --domain "Artificial Intelligence"
 ```
 
 ```bash
-python -m graphrag.index --root ./bin
+python -m graphrag.index --verbose --root ./bin
 ```
+
+
+- `--resume <output-timestamp>`: if specified, the pipeline will attempt to resume a prior run. The parquet files from the prior run will be loaded into the system as inputs, and the workflows that generated those files will be skipped. The input
+
 
 ```bash
 python -m graphrag.query --root . --method global "What are the top 5 companies in the AI space?"

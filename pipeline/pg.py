@@ -66,7 +66,7 @@ if __name__ == '__main__':
     async def collect_csv():
         pg = PGDatabase()
         sql_query = """
-        SELECT uuid, title, content, date FROM public.updates
+        SELECT uuid, title, content, date, resolved_link, src_uuid FROM public.updates
         WHERE src = 'newsletter' and relevance IS true
         """
         res = await pg._select(sql_query)
@@ -77,6 +77,8 @@ if __name__ == '__main__':
             "text": f'# {row["title"]} \n {row["content"]}'.strip(),
             # Format the python datetime as a string
             "date": row["date"].strftime("%Y-%m-%d %H:%M:%S"),
+            "link": row["resolved_link"],
+            "src_uuid": str(row["src_uuid"])
         } for row in res]
 
         # save as csv
