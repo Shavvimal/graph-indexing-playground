@@ -96,7 +96,8 @@ entity_extraction:
   ## parallelization: override the global parallelization settings for this task
   ## async_mode: override the global async_mode settings for this task
   prompt: "prompts/entity_extraction.txt"
-  # entity_types: [organization, person, model, company, product, event, technology, publication, website, startup]
+  # entity_types: [company, person, AI model, product, event, technology, publication, startup, platform, feature]
+  # entity_types: [Companies, AI Models, Technologies, Research Institutions, Conferences, Algorithms, Products, Platforms, Features]
   max_gleanings: 2
 
 summarize_descriptions:

@@ -1,34 +1,41 @@
 # GraphRAG
 
-- [ ] Manage updating the Graph with new data without re-indexing 
+- [ ] Manage updating the Graph with new data without re-indexing
 - [ ] Check Backlinks from Updates
 - [ ] Write a visualisation script
   - See the streamlit app in the demo. You can see the communities, view the summaries on another tab. You can also click in to see the sources of the relationships, nodes and also the data used to make the response.
   - Critical for using this data
   - Think about using a second agent to provide a verification evaluation based on the provided context to see if there are any hallucinations in the returned response. Helps with after the fact analysis on if the response was correctly grounded or not
-- [ ] Hook into exisitng workflow to continuously update the Graph 
-  - CRON 
+- [ ] Hook into exisitng workflow to continuously update the Graph
+  - CRON
   - Index all my AI news data and set up a CRON job to update it
-- [ ] Link it to my own twitter 
+- [ ] Link it to my own twitter
 - [ ] Do this for Podcasts and create a marketing thing
   - throw it at the transcripts for a deep podcast list - you could really pick out connections between concepts that you didn't see initially
-# Getting Started 
 
-```angular2html
-python -m graphrag.prompt_tune --root ./bin --domain "Artificial Intelligence" 
+# Getting Started
+
+[Prompt Tuning](https://microsoft.github.io/graphrag/posts/prompt_tuning/auto_prompt_tuning/):
+
+```bash
+python -m graphrag.prompt_tune --root ./bin --domain "Artificial Intelligence" --limit 150
 ```
+
+[Indexing](https://microsoft.github.io/graphrag/posts/index/2-cli/):
 
 ```bash
 python -m graphrag.index --verbose --root ./bin
 ```
 
-
 - `--resume <output-timestamp>`: if specified, the pipeline will attempt to resume a prior run. The parquet files from the prior run will be loaded into the system as inputs, and the workflows that generated those files will be skipped. The input
 
+Query with [Global](https://microsoft.github.io/graphrag/posts/query/0-global_search/):
 
 ```bash
 python -m graphrag.query --root . --method global "What are the top 5 companies in the AI space?"
 ```
+
+Query with [Local](https://microsoft.github.io/graphrag/posts/query/1-local_search/):
 
 ```bash
 python -m graphrag.query --root . --method local "What is OpenAI, and what are the main relationships?"
@@ -36,8 +43,7 @@ python -m graphrag.query --root . --method local "What is OpenAI, and what are t
 
 # Visualise
 
-Can use the Notebook I've added. I need to see if I can get the visualise python script they have left in the package to work. 
- 
+Can use the Notebook I've added. I need to see if I can get the visualise python script they have left in the package to work.
 
 ## Resources
 
