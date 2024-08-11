@@ -21,6 +21,10 @@
 python -m graphrag.prompt_tune --root ./bin --domain "Artificial Intelligence" --limit 150
 ```
 
+There were a lot of issues while doing this, namely the prompt used to get the language to insert "English" into sentences would include the LLM preamble "Sure, The main language I see in this text is English" so when the prompts were formatted, would make the final prompt not make sesne. This has been manually edited. 
+
+The examples have also been manually edited, the entities have been hand chosen from my knowledge of the data, and the prompts from the tuning output seem different from the baseline prompts. Maybe they are out-dated? Either way, I have manually done promtp editing. 
+
 [Indexing](https://microsoft.github.io/graphrag/posts/index/2-cli/):
 
 ```bash

@@ -68,6 +68,7 @@ if __name__ == '__main__':
         sql_query = """
         SELECT uuid, title, content, date, resolved_link, src_uuid FROM public.updates
         WHERE src = 'newsletter' and relevance IS true
+        LIMIT 20
         """
         res = await pg._select(sql_query)
         # Convert from records to list of Documents

@@ -1,4 +1,7 @@
 tmp.md
+bin/cache
+bin/output 
+
 # Node Artifacts
 */node_modules/
 docsite/*/src/**/*.js
