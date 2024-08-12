@@ -154,7 +154,8 @@ if __name__ == "__main__":
         print(f"Found `{len(video_ids)}` video IDs in the HTML file for {name}.")
         video_ids_existing = await mongo.get_all_video_ids(name)
         video_ids = [video_id for video_id in video_ids if video_id not in video_ids_existing]
-        blacklist = ["UnMGuZUPCxg", "DAVw-yQRUjE", "wdpiD1_kaUo", "OLA5FaLOH0I", "techmgGVOhk", "lZGGMRYdil8", "TTHvgFAzEX0", "3UD9poByGJk", "fCPkg_QH_KA"]
+        # Blacklist some video IDs that are known to cause issues
+        blacklist = ["UnMGuZUPCxg", "DAVw-yQRUjE", "wdpiD1_kaUo", "OLA5FaLOH0I", "techmgGVOhk", "lZGGMRYdil8", "TTHvgFAzEX0", "3UD9poByGJk", "fCPkg_QH_KA", "iIfRdjqYTH8", "C5XdrLi7OmI", "pDDmPi1lqNQ", "k9ewzaclfNY", "jr07F1koMu0", "ObpBZTWo4XE", "eiFvlD9uIco", "YyAV6eKv-D4", "k6Rqn7Urjjw"]
         video_ids = [video_id for video_id in video_ids if video_id not in blacklist]
         print(f"Found `{len(video_ids)}` new video IDs to process.")
 
