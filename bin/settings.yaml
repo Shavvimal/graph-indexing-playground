@@ -21,10 +21,10 @@ llm:
   ##########################################################
   ################ Local Model Ollama ######################
   ##########################################################
-  #  model: gpt-4o
+  model: gpt-4o
 #  model: llama3:70b
-  model: llama3:8b
-  api_base: http://localhost:11434/v1
+#  model: llama3:8b
+#  api_base: http://localhost:11434/v1
 
 parallelization:
   stagger: 0.3
@@ -96,7 +96,7 @@ entity_extraction:
   ## async_mode: override the global async_mode settings for this task
   prompt: "prompts/entity_extraction.txt"
   # entity_types: [company, person, AI model, product, event, technology, publication, startup, platform, feature]
-  # entity_types: [Companies, AI Models, Technologies, Research Institutions, Conferences, Algorithms, Products, Platforms, Features]
+  entity_types: [Companies, AI Models, Technologies, Research Institutions, Conferences, Algorithms, Products, Platforms, Features]
   max_gleanings: 2
 
 summarize_descriptions:
@@ -127,7 +127,7 @@ cluster_graph:
   max_cluster_size: 10
 
 embed_graph:
-  enabled: true # if true, will generate node2vec embeddings for nodes
+  enabled: false # if true, will generate node2vec embeddings for nodes
   # num_walks: 10
   # walk_length: 40
   # window_size: 2
@@ -135,7 +135,7 @@ embed_graph:
   # random_seed: 597832
 
 umap:
-  enabled: true # if true, will generate UMAP embeddings for nodes
+  enabled: false # if true, will generate UMAP embeddings for nodes
 
 snapshots:
   graphml: false

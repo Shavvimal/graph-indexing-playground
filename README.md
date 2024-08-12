@@ -28,7 +28,7 @@ The examples have also been manually edited, the entities have been hand chosen 
 [Indexing](https://microsoft.github.io/graphrag/posts/index/2-cli/):
 
 ```bash
-python -m graphrag.index --verbose --root ./bin
+python -m graphrag.index --root ./bin
 ```
 
 - `--resume <output-timestamp>`: if specified, the pipeline will attempt to resume a prior run. The parquet files from the prior run will be loaded into the system as inputs, and the workflows that generated those files will be skipped. The input

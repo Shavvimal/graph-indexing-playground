@@ -1,12 +1,7 @@
 import asyncio
-from typing import List
 import asyncpg
 import os
-from datetime import datetime
-# Utils & Modelspoetry ad
 from utils.col import p
-from models.news import Newsletter, NewsletterUpdateEmbedded
-from models.rss import ContentUpdate
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -84,7 +79,7 @@ if __name__ == '__main__':
 
         # save as csv
         run_id = time.strftime("%Y%m%d-%H%M%S")
-        df = pd.DataFrame(res, columns=["id", "title", "text", "date"])
+        df = pd.DataFrame(res, columns=["id", "title", "text", "date", "link", "src_uuid"])
         df.to_csv(f"../bin/data/newsletters-{run_id}.csv", index=False, encoding='utf-8')
 
     asyncio.run(collect_csv())
