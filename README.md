@@ -49,6 +49,14 @@ python -m graphrag.query --root . --method local "What is OpenAI, and what are t
 
 Can use the Notebook I've added. I need to see if I can get the visualise python script they have left in the package to work.
 
+# Podcasts 
+
+- ShxtsNGigs
+- TheDiaryOfACEO
+- Lex Fridman Podcast
+- MFM
+- BAE
+
 ## Resources
 
 - [GraphRAG Github](https://github.com/microsoft/graphrag)
