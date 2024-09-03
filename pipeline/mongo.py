@@ -5,6 +5,7 @@ import os
 # Utils & Models
 from utils.col import p
 from models.transcript import Transcript
+from models.scraper import Article
 from datetime import datetime
 
 
@@ -15,14 +16,14 @@ class MongoDatabase:
     """
     _instance = None
 
-    def __new__(cls, uri: str):
+    def __new__(cls, _uri: str, _db: str):
         if cls._instance is None:
             cls._instance = super(MongoDatabase, cls).__new__(cls)
         return cls._instance
 
-    def __init__(self, uri: str):
-        self._MONGO_URI = uri
-        self._DB_NAME = "transcripts"
+    def __init__(self, _uri: str, _db: str = "antler"):
+        self._MONGO_URI = _uri
+        self._DB_NAME = _db
         self.client = None
         self.db = None
         p.printh(f"Mongo Instance Created")
@@ -106,15 +107,42 @@ class MongoDatabase:
         except Exception as error:
             p.printf(f"Error updating transcript metadata: {error}")
 
+    async def collect_all_articles(self, collection: str):
+        """
+        Collects all transcripts from a collection.
+        """
+        try:
+            if self.client is None:
+                await self.setup_client()
+            collection = self.db[collection]
+            articles = await collection.find().to_list(length=None)
+            for article in articles:
+                article['id'] = str(article['_id'])
+                article["date"] = article["date"].strftime("%Y-%m-%d %H:%M:%S")
+            return [Article(**article) for article in articles]
+        except Exception as error:
+            p.printf(f"Error fetching transcripts: {error}")
+            return []
+
 
 if __name__ == '__main__':
     from dotenv import load_dotenv
-    import json
-
+    import pandas as pd
+    import asyncio
+    import time
     # Load .env
     load_dotenv()
-    uri = os.getenv("MONGO_URI")
-    name = "TheDiaryOfACEO"
-    collection_name = name.lower()
-    print(collection_name)
 
+
+    async def main():
+        uri = os.getenv("MONGO_URI")
+        db = "antler"
+        collection = "antler-academy-scrape"
+        mongo = MongoDatabase(uri, db)
+        articles = await mongo.collect_all_articles(collection)
+        # Convert to CSV
+        run_id = time.strftime("%Y%m%d-%H%M%S")
+        df = pd.DataFrame([article.dict() for article in articles])
+        df.to_csv(f"../bin/data/articles-{run_id}.csv", index=False, encoding='utf-8')
+
+    asyncio.run(main())

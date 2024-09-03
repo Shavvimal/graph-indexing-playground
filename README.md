@@ -1,5 +1,38 @@
 # GraphRAG
 
+Because of the complexity of data indexing tasks, we needed to be able to express our data pipeline as series of multiple, interdependent workflows. In the GraphRAG Indexing Pipeline, each workflow may define dependencies on other workflows, effectively forming a directed acyclic graph (DAG) of workflows, which is then used to schedule processing.
+
+```mermaid
+---
+title: Workflow DAG
+---
+stateDiagram-v2
+    [*] --> Prepare&Chunk
+    Prepare&Chunk --> ExtractGraph
+    Prepare&Chunk --> EmbedDocuments
+    ExtractGraph --> GenerateReports
+    ExtractGraph --> EmbedGraph
+    EntityResolution --> EmbedGraph
+    EntityResolution --> GenerateReports
+    ExtractGraph --> EntityResolution
+```
+
+The folders in the code are named after the workflows they contain.
+
+
+## Prepare & Chunk
+
+For newsletters, in general, the workflow is:
+
+1. Parse MBox file into individual Newsletters
+2. Parse into structured data to save raw full Newsletters
+3. Extract individual update entries from each Newsletter using LangChain. This is the Chunking Method
+4. Embed these updates
+5. Store in vector db, alongside metadata
+6. 
+
+## ToDo
+
 - [ ] Manage updating the Graph with new data without re-indexing
 - [ ] Check Backlinks from Updates
 - [ ] Write a visualisation script
@@ -18,7 +51,7 @@
 [Prompt Tuning](https://microsoft.github.io/graphrag/posts/prompt_tuning/auto_prompt_tuning/):
 
 ```bash
-python -m graphrag.prompt_tune --root ./bin --domain "Artificial Intelligence" --limit 150
+python -m graphrag.prompt_tune --root ./bin --domain "Entrepreneurship" --limit 150
 ```
 
 There were a lot of issues while doing this, namely the prompt used to get the language to insert "English" into sentences would include the LLM preamble "Sure, The main language I see in this text is English" so when the prompts were formatted, would make the final prompt not make sesne. This has been manually edited. 
@@ -48,6 +81,8 @@ python -m graphrag.query --root . --method local "What is OpenAI, and what are t
 # Visualise
 
 Can use the Notebook I've added. I need to see if I can get the visualise python script they have left in the package to work.
+
+There is also the Youtuibe Video I saw. 
 
 # Podcasts 
 

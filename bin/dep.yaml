@@ -1,30 +1,10 @@
 encoding_model: cl100k_base
 skip_workflows: []
-
-input:
-  type: file # or blob
-  file_type: csv # or csv
-  base_dir: "data" # The base directory to read input from, relative to the root.
-  file_encoding: utf-8
-  file_pattern: ".*\\.csv$"
-  source_column: "id"
-  text_column: "content"
-  title_column: "title"
-  timestamp_column: "date"
-  timestamp_format: "%Y-%m-%d %H:%M:%S"
-  document_attribute_columns: ["author", "description", "url", "tags"]
-
 llm:
-  api_key: ${AZURE_OPENAI_API_KEY}
-  type: azure_openai_chat # or azure_openai_chat
+  api_key: ${OPENAI_API_KEY}
+  type: openai_chat # or azure_openai_chat
   model_supports_json: true # recommended if this is available for your model.
   max_retries: 10
-  model: gpt-4o
-  api_base: https://shav.openai.azure.com
-  api_version: 2023-03-15-preview
-  tokens_per_minute: 450_000
-  requests_per_minute : 2_700
-  deployment_name: gpt-4o
   # max_tokens: 4000
   # request_timeout: 180.0
   # api_version: 2024-02-15-preview
@@ -41,7 +21,7 @@ llm:
   ##########################################################
   ################ Local Model Ollama ######################
   ##########################################################
-
+  model: gpt-4o
 #  model: llama3:70b
 #  model: llama3:8b
 #  api_base: http://localhost:11434/v1
@@ -57,15 +37,15 @@ embeddings:
   ## parallelization: override the global parallelization settings for embeddings
   async_mode: threaded # or asyncio
   llm:
-    api_key: ${AZURE_OPENAI_API_KEY}
-    type: azure_openai_embedding # or azure_openai_embedding
+    api_key: ${OPENAI_API_KEY}
+    type: openai_embedding # or azure_openai_embedding
     model: text-embedding-3-large
-    api_base: https://shav.openai.azure.com
-    api_version: "2023-05-15"
+    # api_base: https://<instance>.openai.azure.com
+    # api_version: 2024-02-15-preview
     # organization: <organization_id>
-    deployment_name: text-embedding-3-large
-    tokens_per_minute: 350_000 # set a leaky bucket throttle
-    requests_per_minute: 2_100 # set a leaky bucket throttle
+    # deployment_name: <azure_model_deployment_name>
+    # tokens_per_minute: 150_000 # set a leaky bucket throttle
+    # requests_per_minute: 10_000 # set a leaky bucket throttle
     # max_retries: 10
     # max_retry_wait: 10.0
     # sleep_on_rate_limit_recommendation: true # whether to sleep when azure suggests wait-times
@@ -79,6 +59,18 @@ chunks:
   overlap: 100
   group_by_columns: [id] # by default, we don't allow chunks to cross documents
 
+input:
+  type: file # or blob
+  file_type: csv # or csv
+  base_dir: "data"
+  file_encoding: utf-8
+  file_pattern: ".*\\.csv$"
+  source_column: "id"
+  text_column: "text"
+  title_column: "title"
+  timestamp_column: "date"
+  timestamp_format: "%Y-%m-%d %H:%M:%S"
+  document_attribute_columns: ["link", "src_uuid"]
 
 cache:
   type: file # or blob

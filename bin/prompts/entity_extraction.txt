@@ -1,121 +1,144 @@
 
 -Goal-
 Given a text document that is potentially relevant to this activity and a list of entity types, identify all entities of those types from the text and all relationships among the identified entities.
- 
+
 -Steps-
 1. Identify all entities. For each identified entity, extract the following information:
 - entity_name: Name of the entity, capitalized
-- entity_type: One of the following types: [{entity_types}]
+- entity_type: One of the following types: [idea, intellectual property, founder, equity, startup, commitment, risk, market, patent, technology, company, investment, funding, product, revenue, customer, business model, legal document, shareholder, agreement, pitch, elevator pitch, value proposition, mission statement, vision statement, problem statement, economic moat, market validation, minimum viable product, pre-seed funding, seed funding, series A funding, series B funding, venture capital, angel investor, co-founder, early adopter, customer acquisition, revenue model, pricing strategy, intellectual property protection, trade mark, copyright, design registration, trade secret, patent]
 - entity_description: Comprehensive description of the entity's attributes and activities
 Format each entity as ("entity"{tuple_delimiter}<entity_name>{tuple_delimiter}<entity_type>{tuple_delimiter}<entity_description>)
- 
+
 2. From the entities identified in step 1, identify all pairs of (source_entity, target_entity) that are *clearly related* to each other.
 For each pair of related entities, extract the following information:
 - source_entity: name of the source entity, as identified in step 1
 - target_entity: name of the target entity, as identified in step 1
 - relationship_description: explanation as to why you think the source entity and the target entity are related to each other
-- relationship_strength: a numeric score indicating strength of the relationship between the source entity and target entity
- Format each relationship as ("relationship"{tuple_delimiter}<source_entity>{tuple_delimiter}<target_entity>{tuple_delimiter}<relationship_description>{tuple_delimiter}<relationship_strength>)
- 
-3. Return output in English as a single list of all the entities and relationships identified in steps 1 and 2. Use **{record_delimiter}** as the list delimiter.
- 
-4. When finished, output {completion_delimiter}
- 
-######################
+- relationship_strength: an integer score between 1 to 10, indicating strength of the relationship between the source entity and target entity
+Format each relationship as ("relationship"{tuple_delimiter}<source_entity>{tuple_delimiter}<target_entity>{tuple_delimiter}<relationship_description>{tuple_delimiter}<relationship_strength>)
+
+3. Return output in The primary language of the provided text is **English**. as a single list of all the entities and relationships identified in steps 1 and 2. Use **{record_delimiter}** as the list delimiter.
+
+4. If you have to translate into The primary language of the provided text is **English**., just translate the descriptions, nothing else!
+
+5. When finished, output {completion_delimiter}.
+
 -Examples-
 ######################
+
 Example 1:
-Entity_types: ORGANIZATION,PERSON
-Text:
-The Verdantis's Central Institution is scheduled to meet on Monday and Thursday, with the institution planning to release its latest policy decision on Thursday at 1:30 p.m. PDT, followed by a press conference where Central Institution Chair Martin Smith will take questions. Investors expect the Market Strategy Committee to hold its benchmark interest rate steady in a range of 3.5%-3.75%.
-######################
-Output:
-("entity"{tuple_delimiter}CENTRAL INSTITUTION{tuple_delimiter}ORGANIZATION{tuple_delimiter}The Central Institution is the Federal Reserve of Verdantis, which is setting interest rates on Monday and Thursday)
-{record_delimiter}
-("entity"{tuple_delimiter}MARTIN SMITH{tuple_delimiter}PERSON{tuple_delimiter}Martin Smith is the chair of the Central Institution)
-{record_delimiter}
-("entity"{tuple_delimiter}MARKET STRATEGY COMMITTEE{tuple_delimiter}ORGANIZATION{tuple_delimiter}The Central Institution committee makes key decisions about interest rates and the growth of Verdantis's money supply)
-{record_delimiter}
-("relationship"{tuple_delimiter}MARTIN SMITH{tuple_delimiter}CENTRAL INSTITUTION{tuple_delimiter}Martin Smith is the Chair of the Central Institution and will answer questions at a press conference{tuple_delimiter}9)
-{completion_delimiter}
 
-######################
+entity_types: [idea, intellectual property, founder, equity, startup, commitment, risk, market, patent, technology, company, investment, funding, product, revenue, customer, business model, legal document, shareholder, agreement, pitch, elevator pitch, value proposition, mission statement, vision statement, problem statement, economic moat, market validation, minimum viable product, pre-seed funding, seed funding, series A funding, series B funding, venture capital, angel investor, co-founder, early adopter, customer acquisition, revenue model, pricing strategy, intellectual property protection, trade mark, copyright, design registration, trade secret, patent]
+text:
+erâsvalue contribution.
+
+### Idea/Intellectual Property
+
+This category includes who came up with the original idea and any
+contributionsanyone has made in creating specific intellectual property (IP).
+The person with the idea should, of course, getsome equity. But depending on
+the nature of the startup, the IP may be more valuable. For example, in aSaaS-
+based company, coding the first iteration of the backend will be more valuable
+than creating a businessplan and marketing deck for how to scale the eventual
+product. Both are valuable, but youâll need to decide theweight each should
+get as a team according to your market.
+
+### Commitment & Risk
+
+Commitment asks you to consider whether a founder is full-time versus half-
+time.Risk includes financial, emotional, mental, and reputational
+considerations that someone is giving up to enterstartup life.
+
+
+------------------------
+output:
+("entity"{tuple_delimiter}IDEA{tuple_delimiter}idea{tuple_delimiter}The original concept or thought that someone came up with for the startup)
+{record_delimiter}
+("entity"{tuple_delimiter}INTELLECTUAL PROPERTY{tuple_delimiter}intellectual property{tuple_delimiter}Contributions made in creating specific intellectual property, which can include coding, business plans, and marketing decks)
+{record_delimiter}
+("entity"{tuple_delimiter}FOUNDER{tuple_delimiter}founder{tuple_delimiter}The person who came up with the original idea and may receive equity based on their contribution)
+{record_delimiter}
+("entity"{tuple_delimiter}EQUITY{tuple_delimiter}equity{tuple_delimiter}The ownership interest given to the person with the idea or those who contributed to the intellectual property)
+{record_delimiter}
+("entity"{tuple_delimiter}STARTUP{tuple_delimiter}startup{tuple_delimiter}A new business venture that involves creating a product or service and scaling it according to the market)
+{record_delimiter}
+("entity"{tuple_delimiter}COMMITMENT{tuple_delimiter}commitment{tuple_delimiter}The level of dedication a founder has, whether full-time or part-time)
+{record_delimiter}
+("entity"{tuple_delimiter}RISK{tuple_delimiter}risk{tuple_delimiter}Includes financial, emotional, mental, and reputational considerations that someone is giving up to enter startup life)
+{record_delimiter}
+("entity"{tuple_delimiter}MARKET{tuple_delimiter}market{tuple_delimiter}The environment in which the startup operates and scales its product)
+{record_delimiter}
+("entity"{tuple_delimiter}PRODUCT{tuple_delimiter}product{tuple_delimiter}The eventual outcome or service that the startup aims to scale and market)
+{record_delimiter}
+("relationship"{tuple_delimiter}IDEA{tuple_delimiter}FOUNDER{tuple_delimiter}The founder is the person who came up with the original idea{tuple_delimiter}9)
+{record_delimiter}
+("relationship"{tuple_delimiter}FOUNDER{tuple_delimiter}EQUITY{tuple_delimiter}The founder may receive equity based on their contribution to the idea{tuple_delimiter}8)
+{record_delimiter}
+("relationship"{tuple_delimiter}INTELLECTUAL PROPERTY{tuple_delimiter}EQUITY{tuple_delimiter}Contributors to intellectual property may receive equity based on their contributions{tuple_delimiter}7)
+{record_delimiter}
+("relationship"{tuple_delimiter}STARTUP{tuple_delimiter}PRODUCT{tuple_delimiter}The startup aims to scale and market the product{tuple_delimiter}8)
+{record_delimiter}
+("relationship"{tuple_delimiter}COMMITMENT{tuple_delimiter}FOUNDER{tuple_delimiter}Commitment level of the founder, whether full-time or part-time, affects their role in the startup{tuple_delimiter}7)
+{record_delimiter}
+("relationship"{tuple_delimiter}RISK{tuple_delimiter}FOUNDER{tuple_delimiter}The founder takes on various risks, including financial, emotional, mental, and reputational, to enter startup life{tuple_delimiter}8)
+{record_delimiter}
+("relationship"{tuple_delimiter}MARKET{tuple_delimiter}STARTUP{tuple_delimiter}The startup operates and scales its product according to the market{tuple_delimiter}8)
+{record_delimiter}
+{completion_delimiter}
+#############################
+
+
 Example 2:
-Entity_types: ORGANIZATION
-Text:
-TechGlobal's (TG) stock skyrocketed in its opening day on the Global Exchange Thursday. But IPO experts warn that the semiconductor corporation's debut on the public markets isn't indicative of how other newly listed companies may perform.
 
-TechGlobal, a formerly public company, was taken private by Vision Holdings in 2014. The well-established chip designer says it powers 85% of premium smartphones.
-######################
-Output:
-("entity"{tuple_delimiter}TECHGLOBAL{tuple_delimiter}ORGANIZATION{tuple_delimiter}TechGlobal is a stock now listed on the Global Exchange which powers 85% of premium smartphones)
+entity_types: [idea, intellectual property, founder, equity, startup, commitment, risk, market, patent, technology, company, investment, funding, product, revenue, customer, business model, legal document, shareholder, agreement, pitch, elevator pitch, value proposition, mission statement, vision statement, problem statement, economic moat, market validation, minimum viable product, pre-seed funding, seed funding, series A funding, series B funding, venture capital, angel investor, co-founder, early adopter, customer acquisition, revenue model, pricing strategy, intellectual property protection, trade mark, copyright, design registration, trade secret, patent]
+text:
+ over a
+concept](https://www.antler.co/academy/how-to-register-trade-mark), youâve
+got an enormously powerful moat that becomes hard to scale. When Amazon
+successfully patented one-click checkouts in 1999, it immediately established
+a very deep moat. The sheer convenience of one-click checkouts speaks to the
+very core of e-commerce.Â
+
+Apple, for example, pays Amazon what we all assume must be a fortune for that
+technology concept. It has to, because otherwise the app store simply would
+not work. Amazonâs patent will eventually expire, but not before Amazon used
+its moat to build the business behind it to an almost impossible scale.
+
+IP rights are as compelling as patents. Here's a quirky example: A Japanese
+company called Crypton created a digital voice bank that allowed users to
+input words, and the voice would âsingâ them, allowing the user to create
+
+------------------------
+output:
+("entity"{tuple_delimiter}TRADE MARK{tuple_delimiter}intellectual property{tuple_delimiter}A trade mark is a powerful moat that becomes hard to scale, providing significant protection for a concept)
 {record_delimiter}
-("entity"{tuple_delimiter}VISION HOLDINGS{tuple_delimiter}ORGANIZATION{tuple_delimiter}Vision Holdings is a firm that previously owned TechGlobal)
+("entity"{tuple_delimiter}AMAZON{tuple_delimiter}company{tuple_delimiter}Amazon successfully patented one-click checkouts in 1999, establishing a deep moat in e-commerce)
 {record_delimiter}
-("relationship"{tuple_delimiter}TECHGLOBAL{tuple_delimiter}VISION HOLDINGS{tuple_delimiter}Vision Holdings formerly owned TechGlobal from 2014 until present{tuple_delimiter}5)
+("entity"{tuple_delimiter}ONE-CLICK CHECKOUTS{tuple_delimiter}technology{tuple_delimiter}A patented technology by Amazon that provides sheer convenience in e-commerce transactions)
+{record_delimiter}
+("entity"{tuple_delimiter}APPLE{tuple_delimiter}company{tuple_delimiter}Apple pays Amazon for the one-click checkouts technology to ensure the app store functions properly)
+{record_delimiter}
+("entity"{tuple_delimiter}PATENT{tuple_delimiter}intellectual property{tuple_delimiter}Amazon's patent on one-click checkouts, which will eventually expire but has been used to build a significant business)
+{record_delimiter}
+("entity"{tuple_delimiter}CRYPTON{tuple_delimiter}company{tuple_delimiter}A Japanese company that created a digital voice bank allowing users to input words and have the voice sing them)
+{record_delimiter}
+("relationship"{tuple_delimiter}AMAZON{tuple_delimiter}ONE-CLICK CHECKOUTS{tuple_delimiter}Amazon patented the one-click checkouts technology in 1999{tuple_delimiter}10)
+{record_delimiter}
+("relationship"{tuple_delimiter}AMAZON{tuple_delimiter}PATENT{tuple_delimiter}Amazon holds a patent for the one-click checkouts technology{tuple_delimiter}10)
+{record_delimiter}
+("relationship"{tuple_delimiter}APPLE{tuple_delimiter}AMAZON{tuple_delimiter}Apple pays Amazon for the one-click checkouts technology{tuple_delimiter}8)
+{record_delimiter}
+("relationship"{tuple_delimiter}APPLE{tuple_delimiter}ONE-CLICK CHECKOUTS{tuple_delimiter}Apple uses Amazon's one-click checkouts technology for its app store{tuple_delimiter}8)
+{record_delimiter}
+("relationship"{tuple_delimiter}CRYPTON{tuple_delimiter}PATENT{tuple_delimiter}Crypton created a digital voice bank, an example of compelling IP rights like patents{tuple_delimiter}5)
 {completion_delimiter}
+#############################
 
-######################
-Example 3:
-Entity_types: ORGANIZATION,GEO,PERSON
-Text:
-Five Aurelians jailed for 8 years in Firuzabad and widely regarded as hostages are on their way home to Aurelia.
 
-The swap orchestrated by Quintara was finalized when $8bn of Firuzi funds were transferred to financial institutions in Krohaara, the capital of Quintara.
 
-The exchange initiated in Firuzabad's capital, Tiruzia, led to the four men and one woman, who are also Firuzi nationals, boarding a chartered flight to Krohaara.
-
-They were welcomed by senior Aurelian officials and are now on their way to Aurelia's capital, Cashion.
-
-The Aurelians include 39-year-old businessman Samuel Namara, who has been held in Tiruzia's Alhamia Prison, as well as journalist Durke Bataglani, 59, and environmentalist Meggie Tazbah, 53, who also holds Bratinas nationality.
-######################
-Output:
-("entity"{tuple_delimiter}FIRUZABAD{tuple_delimiter}GEO{tuple_delimiter}Firuzabad held Aurelians as hostages)
-{record_delimiter}
-("entity"{tuple_delimiter}AURELIA{tuple_delimiter}GEO{tuple_delimiter}Country seeking to release hostages)
-{record_delimiter}
-("entity"{tuple_delimiter}QUINTARA{tuple_delimiter}GEO{tuple_delimiter}Country that negotiated a swap of money in exchange for hostages)
-{record_delimiter}
-{record_delimiter}
-("entity"{tuple_delimiter}TIRUZIA{tuple_delimiter}GEO{tuple_delimiter}Capital of Firuzabad where the Aurelians were being held)
-{record_delimiter}
-("entity"{tuple_delimiter}KROHAARA{tuple_delimiter}GEO{tuple_delimiter}Capital city in Quintara)
-{record_delimiter}
-("entity"{tuple_delimiter}CASHION{tuple_delimiter}GEO{tuple_delimiter}Capital city in Aurelia)
-{record_delimiter}
-("entity"{tuple_delimiter}SAMUEL NAMARA{tuple_delimiter}PERSON{tuple_delimiter}Aurelian who spent time in Tiruzia's Alhamia Prison)
-{record_delimiter}
-("entity"{tuple_delimiter}ALHAMIA PRISON{tuple_delimiter}GEO{tuple_delimiter}Prison in Tiruzia)
-{record_delimiter}
-("entity"{tuple_delimiter}DURKE BATAGLANI{tuple_delimiter}PERSON{tuple_delimiter}Aurelian journalist who was held hostage)
-{record_delimiter}
-("entity"{tuple_delimiter}MEGGIE TAZBAH{tuple_delimiter}PERSON{tuple_delimiter}Bratinas national and environmentalist who was held hostage)
-{record_delimiter}
-("relationship"{tuple_delimiter}FIRUZABAD{tuple_delimiter}AURELIA{tuple_delimiter}Firuzabad negotiated a hostage exchange with Aurelia{tuple_delimiter}2)
-{record_delimiter}
-("relationship"{tuple_delimiter}QUINTARA{tuple_delimiter}AURELIA{tuple_delimiter}Quintara brokered the hostage exchange between Firuzabad and Aurelia{tuple_delimiter}2)
-{record_delimiter}
-("relationship"{tuple_delimiter}QUINTARA{tuple_delimiter}FIRUZABAD{tuple_delimiter}Quintara brokered the hostage exchange between Firuzabad and Aurelia{tuple_delimiter}2)
-{record_delimiter}
-("relationship"{tuple_delimiter}SAMUEL NAMARA{tuple_delimiter}ALHAMIA PRISON{tuple_delimiter}Samuel Namara was a prisoner at Alhamia prison{tuple_delimiter}8)
-{record_delimiter}
-("relationship"{tuple_delimiter}SAMUEL NAMARA{tuple_delimiter}MEGGIE TAZBAH{tuple_delimiter}Samuel Namara and Meggie Tazbah were exchanged in the same hostage release{tuple_delimiter}2)
-{record_delimiter}
-("relationship"{tuple_delimiter}SAMUEL NAMARA{tuple_delimiter}DURKE BATAGLANI{tuple_delimiter}Samuel Namara and Durke Bataglani were exchanged in the same hostage release{tuple_delimiter}2)
-{record_delimiter}
-("relationship"{tuple_delimiter}MEGGIE TAZBAH{tuple_delimiter}DURKE BATAGLANI{tuple_delimiter}Meggie Tazbah and Durke Bataglani were exchanged in the same hostage release{tuple_delimiter}2)
-{record_delimiter}
-("relationship"{tuple_delimiter}SAMUEL NAMARA{tuple_delimiter}FIRUZABAD{tuple_delimiter}Samuel Namara was a hostage in Firuzabad{tuple_delimiter}2)
-{record_delimiter}
-("relationship"{tuple_delimiter}MEGGIE TAZBAH{tuple_delimiter}FIRUZABAD{tuple_delimiter}Meggie Tazbah was a hostage in Firuzabad{tuple_delimiter}2)
-{record_delimiter}
-("relationship"{tuple_delimiter}DURKE BATAGLANI{tuple_delimiter}FIRUZABAD{tuple_delimiter}Durke Bataglani was a hostage in Firuzabad{tuple_delimiter}2)
-{completion_delimiter}
-
-######################
 -Real Data-
 ######################
-Entity_types: {entity_types}
-Text: {input_text}
+entity_types: [idea, intellectual property, founder, equity, startup, commitment, risk, market, patent, technology, company, investment, funding, product, revenue, customer, business model, legal document, shareholder, agreement, pitch, elevator pitch, value proposition, mission statement, vision statement, problem statement, economic moat, market validation, minimum viable product, pre-seed funding, seed funding, series A funding, series B funding, venture capital, angel investor, co-founder, early adopter, customer acquisition, revenue model, pricing strategy, intellectual property protection, trade mark, copyright, design registration, trade secret, patent]
+text: {input_text}
 ######################
-Output:
+output:
